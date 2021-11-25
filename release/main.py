@@ -4,17 +4,19 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+from addEditCoffeeForm import Ui_Dialog
+from main1 import Ui_MainWindow
 
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("main.ui", self)
-        self.con = sqlite3.connect("coffee.sqlite")
+        self.setupUi(self)
+        self.con = sqlite3.connect("../data/coffee.sqlite")
         self.pushButton.clicked.connect(self.update_result)
         self.pushButton_3.clicked.connect(self.insert_item)
         self.tableWidget.itemChanged.connect(self.item_changed)
@@ -70,10 +72,10 @@ class MyWidget(QMainWindow):
             print(e)
 
 
-class Edit(QDialog):
+class Edit(QDialog, Ui_Dialog):
     def __init__(self, parent):
         super().__init__()
-        uic.loadUi("addEditCoffeeForm.ui", self)
+        self.setupUi(self)
         self.con = sqlite3.connect("coffee.sqlite")
         self.addButton.clicked.connect(self.add)
         self.parent = parent
