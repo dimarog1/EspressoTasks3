@@ -85,7 +85,6 @@ class Edit(QDialog, Ui_Dialog):
         try:
             que = f"INSERT INTO coffee(id,name,sort,roast_degree,type,flavour_description,price,packing_volume) VALUES ({self.parent.max_id + 1}, '{self.name.text()}', '{self.sort.text()}', '{self.roast_degree.text()}'," \
                   f" '{self.type.text()}', '{self.flavour_description.text()}', {self.price.text()}, {self.packing_volume.text()})"
-            print(que)
             cur.execute(que)
             self.accepted.setText('Добавлено!')
             self.con.commit()
